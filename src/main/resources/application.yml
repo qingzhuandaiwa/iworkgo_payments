@@ -1,8 +1,26 @@
 spring:
+
   datasource:
     url: jdbc:mysql://47.104.210.228:3306/workgo_0115?tinyInt1isBit=false&useUnicode=true&characterEncoding=utf-8
     username: ty
     password: ty@2018.com
     driver-class-name: com.mysql.cj.jdbc.Driver
 
+  freemarker:
+    allowRequestOverride: false
+    allowSessionOverride: false
+    cache: true
+    checkTemplateLocation: true
+    contentType: text/html
+    exposeRequestAttributes: false
+    exposeSessionAttributes: false
+    exposeSpringMacroHelpers: false
+    suffix: .html
+    templateEncoding: UTF-8
+    templateLoaderPath: classpath:/views/  #表示所有的模板文件都放在该目录下
+    spring.freemarker.settings:
+      locale: zh_CN
+      date_format: yyyy-MM-dd
+      time_format: HH:mm:ss
+      datetime_format: yyyy-MM-dd HH:mm:ss
 
