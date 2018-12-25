@@ -1,6 +1,8 @@
 package com.yk.iworkgo.payment.controller;
 
 
+import com.alibaba.druid.support.json.JSONUtils;
+import com.alibaba.fastjson.JSONObject;
 import com.yk.iworkgo.common.PageVO;
 import com.yk.iworkgo.payment.entity.Bill;
 import com.yk.iworkgo.payment.service.BillService;
@@ -12,6 +14,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.yk.iworkgo.common.BaseController;
 
 import java.util.Map;
+import java.util.Optional;
 
 /**
  * <p>
@@ -30,8 +33,13 @@ public class BillController extends BaseController {
 
     @RequestMapping("list")
     public PageVO<Bill> listPage(@RequestParam Map<String, String> condition){
-//        billService.listPage();
-return null;
+//        String jsonString = JSONUtils.toJSONString(condition);
+//        JSONObject object = JSONObject.parseObject(jsonString);
+//        if(object.getInteger("pageFrom") == null || object.getInteger("pageSize") == null || object.getLong("parkId") == null) {
+//        }
+//        Long parkId = Optional.ofNullable(condition.get("parkId")).map(Long::parseLong).orElse(0L);
+//        return this.listPage(condition);
+        return null;
     }
 
 }
