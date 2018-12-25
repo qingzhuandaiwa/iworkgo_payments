@@ -48,6 +48,16 @@ public class HttpUtil {
         return httpRequest(url, "POST", headers, body, "UTF-8");
     }
 
+	/**
+	 * http请求工具类，返回数据以UTF-8编码进行读取
+	 * @param url
+	 * @param headers
+	 * @return
+	 */
+	public static HttpResp requestGet(String url, Map<String, String> headers) {
+		return httpRequest(url, "GET", headers, null, "UTF-8");
+	}
+
 	public static HttpResp requestUTF(String url, Map<String, String> headers, Map<String, String> params) {
 
 		String body = "";
