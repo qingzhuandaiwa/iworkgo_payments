@@ -8,6 +8,7 @@ import org.springframework.boot.configurationprocessor.json.JSONObject;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 
@@ -20,5 +21,7 @@ import java.util.Optional;
  * @since 2018-12-24
  */
 public interface BillService extends IService<Bill> {
+
+    public List<Bill> listCurrentBill(Map<String,String> condition);
 
 }

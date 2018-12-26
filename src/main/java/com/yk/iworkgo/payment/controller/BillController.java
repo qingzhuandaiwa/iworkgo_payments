@@ -3,9 +3,11 @@ package com.yk.iworkgo.payment.controller;
 
 import com.alibaba.druid.support.json.JSONUtils;
 import com.alibaba.fastjson.JSONObject;
+import com.baomidou.mybatisplus.core.conditions.Wrapper;
 import com.yk.iworkgo.common.PageVO;
 import com.yk.iworkgo.payment.entity.Bill;
 import com.yk.iworkgo.payment.service.BillService;
+import com.yk.iworkgo.payment.service.DataservicesService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 
@@ -28,6 +30,7 @@ import java.util.Optional;
 @RequestMapping("/payment/bill")
 public class BillController extends BaseController {
 
+
     @Autowired
     BillService billService;
 
@@ -39,6 +42,9 @@ public class BillController extends BaseController {
 //        }
 //        Long parkId = Optional.ofNullable(condition.get("parkId")).map(Long::parseLong).orElse(0L);
 //        return this.listPage(condition);
+        condition.put("pageFrom","1");
+        condition.put("pageSize","10");
+        billService.listCurrentBill(condition);
         return null;
     }
 

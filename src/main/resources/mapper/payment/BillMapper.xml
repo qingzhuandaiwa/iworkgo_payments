@@ -1,5 +1,44 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.yk.iworkgo.payment.mapper.BillMapper">
+    <resultMap id="BaseResultMap" type="com.yk.iworkgo.payment.entity.Bill" >
+        <id column="bill_id" property="billId" jdbcType="BIGINT" />
+        <result column="bill_type" property="billType" jdbcType="VARCHAR" />
+        <result column="prime_amount" property="primeAmount" jdbcType="DECIMAL" />
+
+        <result column="over_due_fine_theory_amount" property="overDueFineTheoryAmount" jdbcType="DECIMAL" />
+        <result column="actual_amount" property="actualAmount" jdbcType="DECIMAL" />
+        <result column="building_name" property="buildingName" jdbcType="VARCHAR" />
+        <result column="room_number" property="roomNumber" jdbcType="VARCHAR" />
+        <result column="over_due_fine_status" property="overDueFineStatus" jdbcType="VARCHAR" />
+
+        <result column="due_status_name" property="dueStatusName" jdbcType="VARCHAR" />
+        <result column="settle_status" property="settleStatus" jdbcType="VARCHAR" />
+        <result column="settle_status_name" property="settleStatusName" jdbcType="VARCHAR" />
+        <result column="start_date" property="startDate" jdbcType="TIMESTAMP" />
+        <result column="end_date" property="endDate" jdbcType="TIMESTAMP" />
+        <result column="is_del" property="isDel" jdbcType="INTEGER" />
+    </resultMap>
+
+    <select id="getCurrentBillS" resultMap="BaseResultMap">
+        SELECT
+            a.*
+        FROM
+            bill a
+        INNER JOIN (
+            SELECT
+                object_id,
+                MIN(expired_day) AS expired_day
+            FROM
+                bill
+            WHERE
+        object_type='CONTRACT' and expired_day > 0 and bill_type LIKE '%租金%' and closed_status='NORMAL'
+          and settle_status IN ("IN_PROCESS","PART_SETTLE")
+            GROUP BY
+                object_id
+        ) b ON a.object_id = b.object_id
+        AND a.expired_day = b.expired_day
+        ORDER BY a.expired_day asc
+    </select>
 
 </mapper>

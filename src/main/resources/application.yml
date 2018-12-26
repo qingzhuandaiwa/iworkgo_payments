@@ -28,3 +28,13 @@ spring:
 #      spec: initialCapacity=50,maximumSize=500,expireAfterWrite=1s #10分钟失效
 #      #,refreshAfterWrite=5s
 
+client_id: e53693a9c728a9790489ed73de460a45
+client_secret: f2c2aea44a664582311b0044d45670ef
+
+#数据中心请求地址
+IPPort: http://120.27.219.194:8080
+
+#获取token
+getToken: /dataservices/oauth/token
+
+
