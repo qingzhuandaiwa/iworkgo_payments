@@ -4,6 +4,7 @@ import com.baomidou.mybatisplus.core.conditions.Wrapper;
 import com.baomidou.mybatisplus.core.conditions.query.EmptyWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.yk.iworkgo.common.PageVO;
 import com.yk.iworkgo.payment.entity.Bill;
 import com.yk.iworkgo.payment.mapper.BillMapper;
 import com.yk.iworkgo.payment.service.BillService;
@@ -32,10 +33,10 @@ public class BillServiceImpl extends ServiceImpl<BillMapper, Bill> implements Bi
 
 
     @Override
-    public List<Bill> listCurrentBill(Map<String, String> condition) {
+    public PageVO<Bill> listCurrentBill(Map<String, String> condition) {
         Page<Bill> page = BuildPageHelper.buildPage(condition);
         List<Bill> billS = billMapper.getCurrentBillS(page);
-        return billS;
+        return new PageVO<>(billS,page);
     }
 
 //    @Resource

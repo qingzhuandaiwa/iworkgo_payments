@@ -9,9 +9,11 @@ import com.yk.iworkgo.payment.entity.Bill;
 import com.yk.iworkgo.payment.service.BillService;
 import com.yk.iworkgo.payment.service.DataservicesService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 import com.yk.iworkgo.common.BaseController;
 
@@ -26,15 +28,22 @@ import java.util.Optional;
  * @author guojing
  * @since 2018-12-24
  */
-@RestController
-@RequestMapping("/payment/bill")
+@Controller
+@RequestMapping("/bill")
 public class BillController extends BaseController {
 
 
     @Autowired
     BillService billService;
 
-    @RequestMapping("list")
+    @RequestMapping("/index")
+    public String index(){
+        return "payment/property";
+    }
+
+
+    @RequestMapping("/listPage")
+    @ResponseBody
     public PageVO<Bill> listPage(@RequestParam Map<String, String> condition){
 //        String jsonString = JSONUtils.toJSONString(condition);
 //        JSONObject object = JSONObject.parseObject(jsonString);
@@ -44,8 +53,7 @@ public class BillController extends BaseController {
 //        return this.listPage(condition);
         condition.put("pageFrom","1");
         condition.put("pageSize","10");
-        billService.listCurrentBill(condition);
-        return null;
+        return billService.listCurrentBill(condition);
     }
 
 }
