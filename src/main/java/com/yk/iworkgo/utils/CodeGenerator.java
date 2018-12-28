@@ -50,11 +50,11 @@ public class CodeGenerator {
 
         // 数据源配置
         DataSourceConfig dsc = new DataSourceConfig();
-        dsc.setUrl("jdbc:mysql://47.104.210.228:3306/creams3?useUnicode=true&useSSL=false&characterEncoding=utf8");
+        dsc.setUrl("jdbc:mysql://49.4.80.47:3306/increment_service_data?useUnicode=true&useSSL=false&characterEncoding=utf8");
         // dsc.setSchemaName("public");
         dsc.setDriverName("com.mysql.jdbc.Driver");
-        dsc.setUsername("ty");
-        dsc.setPassword("ty@2018.com");
+        dsc.setUsername("dsj");
+        dsc.setPassword("qv5zFdaUpxc2'hm");
         mpg.setDataSource(dsc);
 
         // 包配置
@@ -107,6 +107,7 @@ public class CodeGenerator {
         strategy.setNaming(NamingStrategy.underline_to_camel);
         strategy.setColumnNaming(NamingStrategy.underline_to_camel);
 //        strategy.setSuperEntityClass("com.baomidou.ant.common.BaseEntity");
+        strategy.setTablePrefix("t_");
         strategy.setEntityLombokModel(true);
         strategy.setRestControllerStyle(true);
         strategy.setSuperControllerClass("com.yk.iworkgo.common.BaseController");
