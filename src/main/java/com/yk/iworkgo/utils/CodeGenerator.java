@@ -105,9 +105,11 @@ public class CodeGenerator {
         // 策略配置
         StrategyConfig strategy = new StrategyConfig();
         strategy.setNaming(NamingStrategy.underline_to_camel);
+//        strategy.setNaming(NamingStrategy.removePrefix("","t_"));
         strategy.setColumnNaming(NamingStrategy.underline_to_camel);
+
 //        strategy.setSuperEntityClass("com.baomidou.ant.common.BaseEntity");
-        strategy.setTablePrefix("t_");
+//        strategy.setTablePrefix("t_");
         strategy.setEntityLombokModel(true);
         strategy.setRestControllerStyle(true);
         strategy.setSuperControllerClass("com.yk.iworkgo.common.BaseController");

@@ -280,10 +280,13 @@
                                 // $("")
                                 console.log(result);
                                 // alert("success");
-
+                                if (result.code !== 200){
+                                    alert(result.message);
+                                    return;
+                                }
 
                                 //联网成功的回调
-                                successCallback&&successCallback(result);
+                                successCallback&&successCallback(result.data);
                             }
                         })
 

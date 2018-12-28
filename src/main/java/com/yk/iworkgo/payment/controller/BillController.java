@@ -62,11 +62,11 @@ public class BillController extends BaseController {
             rsp.setMessage("未传入分页参数");
             return rsp;
         }
-        if (StringUtils.isEmpty(object.getString("tel"))){
-            rsp.setCode(400);
-            rsp.setMessage("未传入用户的电话号码");
-            return rsp;
-        }
+//        if (StringUtils.isEmpty(object.getString("tel"))){
+//            rsp.setCode(400);
+//            rsp.setMessage("未传入用户的电话号码");
+//            return rsp;
+//        }
 //        Long parkId = Optional.ofNullable(condition.get("parkId")).map(Long::parseLong).orElse(0L);
 //        return this.listPage(condition);
 //        condition.put("pageFrom","1");
