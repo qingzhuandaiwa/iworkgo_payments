@@ -7,17 +7,17 @@
 	<meta name="keywords" content="" />
 	<meta name="description" content="" />
 	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
-	<link rel="stylesheet" href="/static/css/cui.css" />
-	<link rel="stylesheet" href="/static/css/lib.css" />
-	<link rel="stylesheet" href="/static/css/slick.css" />
-	<link rel="stylesheet" href="/static/css/style.css" />
+	<link rel="stylesheet" href="${ctx.contextPath}/static/css/cui.css" />
+	<link rel="stylesheet" href="${ctx.contextPath}/static/css/lib.css" />
+	<link rel="stylesheet" href="${ctx.contextPath}/static/css/slick.css" />
+	<link rel="stylesheet" href="${ctx.contextPath}/static/css/style.css" />
 
-    <link rel="stylesheet" href="/static/css/mescroll.min.css" />
+    <link rel="stylesheet" href="${ctx.contextPath}/static/css/mescroll.min.css" />
 
-    <script src="/static/js/jquery.min.js"></script>
-    <script src="/static/js/lib.js"></script>
-    <script src="/static/js/mescroll.min.js"></script>
-    <script src="/static/layer/layer.js"></script>
+    <script src="${ctx.contextPath}/static/js/jquery.min.js"></script>
+    <script src="${ctx.contextPath}/static/js/lib.js"></script>
+    <script src="${ctx.contextPath}/static/js/mescroll.min.js"></script>
+    <script src="${ctx.contextPath}/static/layer/layer.js"></script>
 
 
 
@@ -299,7 +299,7 @@
                                 // span2.innerHTML =	"<a href='javascript:phonecall(&apos;"+hotline[1]+"&apos;)'>"+hotline[1]+"</a>";
                                 // ul.appendChild(span2);
                                 // $("")
-
+                                console.log(data);
                                 alert("success");
                             }
                         })
