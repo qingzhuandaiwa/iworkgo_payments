@@ -4,9 +4,12 @@ import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import com.baomidou.mybatisplus.annotation.TableField;
 import java.io.Serializable;
+
+import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.experimental.Accessors;
+import org.springframework.format.annotation.DateTimeFormat;
 
 /**
  * <p>
@@ -95,6 +98,7 @@ public class Bill implements Serializable {
     /**
      * 结束时间
      */
+    @JsonFormat(pattern = "yyyy.MM.dd",timezone="GMT+8")
     private LocalDateTime endDate;
 
     /**
@@ -215,6 +219,7 @@ public class Bill implements Serializable {
     /**
      * 开始时间
      */
+    @JsonFormat(pattern = "yyyy.MM.dd",timezone="GMT+8")
     private LocalDateTime startDate;
 
     /**

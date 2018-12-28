@@ -1,10 +1,12 @@
 package com.yk.iworkgo.config;
 
+import com.yk.iworkgo.aop.UrlInterceptor;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.util.ResourceUtils;
 import org.springframework.web.servlet.config.annotation.*;
-import org.springframework.web.servlet.view.InternalResourceViewResolver;
+
+import javax.annotation.Resource;
 
 /**
  */
@@ -12,6 +14,10 @@ import org.springframework.web.servlet.view.InternalResourceViewResolver;
 @ComponentScan
 //@EnableWebMvc
 public class WebConfig extends WebMvcConfigurationSupport {
+
+    @Resource
+    private UrlInterceptor urlInterceptor;
+
   @Override
   protected void addResourceHandlers(ResourceHandlerRegistry registry) {
       registry.addResourceHandler("static/**").addResourceLocations(ResourceUtils.CLASSPATH_URL_PREFIX+"/static/");
@@ -19,7 +25,13 @@ public class WebConfig extends WebMvcConfigurationSupport {
       super.addResourceHandlers(registry);
   }
 
-  //  @Override
+    @Override
+    protected void addInterceptors(InterceptorRegistry registry) {
+        registry.addInterceptor(urlInterceptor).addPathPatterns("/**");
+      super.addInterceptors(registry);
+    }
+
+    //  @Override
 //  public void addResourceHandlers(ResourceHandlerRegistry registry) {
 //    /**
 //     * 处理所有HTML的请求，到static目录下查找对应的资源
