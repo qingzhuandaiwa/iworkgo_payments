@@ -35,8 +35,8 @@
             <li><a href="javascript:;">逾期未缴账单</a></li>
             <li><a href="javascript:;">缴费记录</a></li>
         </ul>
-        <p>${appSecret!}</p>
-        <div class="tab01 mescroll"    id="mescroll" >
+        <!--<p>${appSecret!}</p>-->
+        <div class="tab01 mescroll"    id="currentMescroll" >
             <ul class="ul-q2 bq">
                 <!--<li>-->
                     <!--<div class="top">-->
@@ -50,48 +50,48 @@
             </ul>
 
         </div>
-        <div class="tab01 dn">
-            <ul class="ul-q2">
+        <div class="tab01 dn mescroll"    id="overDueMescroll">
+        <ul class="ul-q2 yq">
                 <li>
-                    <div class="top">
-                        <h3>创意中央 1栋 301</h3>
-                    </div>
-                    <div class="txt">
-                        <span><em>￥</em>15050</span>
-                        <i class="i2">含滞纳金50元</i>
-                    </div>
-                    <p>2018.01.01-2018.12.31</p>
+                    <!--<div class="top">-->
+                        <!--<h3>创意中央 1栋 301</h3>-->
+                    <!--</div>-->
+                    <!--<div class="txt">-->
+                        <!--<span><em>￥</em>15050</span>-->
+                        <!--<i class="i2">含滞纳金50元</i>-->
+                    <!--</div>-->
+                    <!--<p>2018.01.01-2018.12.31</p>-->
                 </li>
-                <li>
-                    <div class="top">
-                        <h3>创意中央 1栋 301</h3>
-                    </div>
-                    <div class="txt">
-                        <span><em>￥</em>15050</span>
-                        <i class="i2">含滞纳金50元</i>
-                    </div>
-                    <p>2018.01.01-2018.12.31</p>
-                </li>
-                <li>
-                    <div class="top">
-                        <h3>创意中央 1栋 301</h3>
-                    </div>
-                    <div class="txt">
-                        <span><em>￥</em>15050</span>
-                        <i class="i2">含滞纳金50元</i>
-                    </div>
-                    <p>2018.01.01-2018.12.31</p>
-                </li>
-                <li>
-                    <div class="top">
-                        <h3>创意中央 1栋 301</h3>
-                    </div>
-                    <div class="txt">
-                        <span><em>￥</em>15050</span>
-                        <i class="i2">含滞纳金50元</i>
-                    </div>
-                    <p>2018.01.01-2018.12.31</p>
-                </li>
+                <!--<li>-->
+                    <!--<div class="top">-->
+                        <!--<h3>创意中央 1栋 301</h3>-->
+                    <!--</div>-->
+                    <!--<div class="txt">-->
+                        <!--<span><em>￥</em>15050</span>-->
+                        <!--<i class="i2">含滞纳金50元</i>-->
+                    <!--</div>-->
+                    <!--<p>2018.01.01-2018.12.31</p>-->
+                <!--</li>-->
+                <!--<li>-->
+                    <!--<div class="top">-->
+                        <!--<h3>创意中央 1栋 301</h3>-->
+                    <!--</div>-->
+                    <!--<div class="txt">-->
+                        <!--<span><em>￥</em>15050</span>-->
+                        <!--<i class="i2">含滞纳金50元</i>-->
+                    <!--</div>-->
+                    <!--<p>2018.01.01-2018.12.31</p>-->
+                <!--</li>-->
+                <!--<li>-->
+                    <!--<div class="top">-->
+                        <!--<h3>创意中央 1栋 301</h3>-->
+                    <!--</div>-->
+                    <!--<div class="txt">-->
+                        <!--<span><em>￥</em>15050</span>-->
+                        <!--<i class="i2">含滞纳金50元</i>-->
+                    <!--</div>-->
+                    <!--<p>2018.01.01-2018.12.31</p>-->
+                <!--</li>-->
             </ul>
         </div>
         <div class="tab01 dn">
@@ -143,17 +143,20 @@
 
 
     <script type="text/javascript">
+        // var tel = '';
+        var tel = '17705160242';
+
         $(function(){
             //创建MeScroll对象
-            var mescroll = new MeScroll("mescroll", {
+            var currMescroll = new MeScroll("currentMescroll", {
                 down: {
                     auto: false, //是否在初始化完毕之后自动执行下拉回调callback; 默认true
-                    callback: downCallback //下拉刷新的回调
+                    callback: currDownCallback //本期账单 下拉刷新的回调
                 },
                 up: {
                     auto: true, //是否在初始化时以上拉加载的方式自动加载第一页数据; 默认false
                     isBounce: false, //此处禁止ios回弹,解析(务必认真阅读,特别是最后一点): http://www.mescroll.com/qa.html#q10
-                    callback: upCallback, //上拉回调,此处可简写; 相当于 callback: function (page) { upCallback(page); }
+                    callback: currUpCallback, //本期账单 上拉回调,此处可简写; 相当于 callback: function (page) { upCallback(page); }
                     toTop:{ //配置回到顶部按钮
                         src : "../res/img/mescroll-totop.png", //默认滚动到1000px显示,可配置offset修改
                         //offset : 1000
@@ -161,30 +164,48 @@
                 }
             });
 
+            //创建MeScroll对象
+            var overDueMescroll = new MeScroll("overDueMescroll", {
+                down: {
+                    auto: false,
+                    callback: overDownCallback //逾期账单 下拉刷新的回调
+                },
+                up: {
+                    auto: true, //是否在初始化时以上拉加载的方式自动加载第一页数据; 默认false
+                    isBounce: false, //此处禁止ios回弹,解析(务必认真阅读,特别是最后一点): http://www.mescroll.com/qa.html#q10
+                    callback: overUpCallback, //本期账单 上拉回调,此处可简写; 相当于 callback: function (page) { upCallback(page); }
+                    toTop:{ //配置回到顶部按钮
+                        src : "../res/img/mescroll-totop.png", //默认滚动到1000px显示,可配置offset修改
+                        //offset : 1000
+                    }
+                }
+            });
+            /**********************************本期账单的操作**************************************/
+
             /*下拉刷新的回调 */
-            function downCallback(){
+            function currDownCallback(){
                 //联网加载数据
-                getListDataFromNet(0, 1, function(data){
+                getListDataFromNet(0, 1, 1 ,tel, function(data){
                     //联网成功的回调,隐藏下拉刷新的状态
-                    mescroll.endSuccess();
+                    currMescroll.endSuccess();
                     //设置列表数据
-                    setListData(data, false);
+                    setCurrListData(data, false);
                 }, function(){
                     //联网失败的回调,隐藏下拉刷新的状态
-                    mescroll.endErr();
+                    currMescroll.endErr();
                 });
             }
 
             /*上拉加载的回调 page = {num:1, size:10}; num:当前页 从1开始, size:每页数据条数 */
-            function upCallback(page){
+            function currUpCallback(page){
                 //联网加载数据
-                getListDataFromNet(page.num, page.size, function(curPageData){
+                getListDataFromNet(page.num, page.size,1,tel, function(curPageData){
                     //联网成功的回调,隐藏下拉刷新和上拉加载的状态;
                     //mescroll会根据传的参数,自动判断列表如果无任何数据,则提示空;列表无下一页数据,则提示无更多数据;
                     console.log("page.num="+page.num+", page.size="+page.size+", curPageData.length="+curPageData.rows);
 
                     //方法一(推荐): 后台接口有返回列表的总页数 totalPage
-                    mescroll.endByPage(curPageData.rows.length, curPageData.total); //必传参数(当前页的数据个数, 总页数)
+                    currMescroll.endByPage(curPageData.rows.length, curPageData.total); //必传参数(当前页的数据个数, 总页数)
 
                     //方法二(推荐): 后台接口有返回列表的总数据量 totalSize
                     //mescroll.endBySize(curPageData.length, totalSize); //必传参数(当前页的数据个数, 总数据量)
@@ -201,23 +222,22 @@
                     // 3.使配置的noMoreSize生效
 
                     //设置列表数据
-                    setListData(curPageData.rows, true);
+                    setCurrListData(curPageData.rows, true);
                 }, function(){
                     //联网失败的回调,隐藏下拉刷新和上拉加载的状态;
-                    mescroll.endErr();
+                    currMescroll.endErr();
                 });
             }
 
+
             /*设置列表数据*/
-            function setListData(rows, isAppend) {
+            function setCurrListData(rows, isAppend) {
                 // var listDom=document.getElementById("newsList");
                 var listDom=document.getElementsByClassName("ul-q2 bq")[0];
 
                 for (var i = 0; i < rows.length; i++) {
                     var newObj=rows[i];
 
-                    // var str='<p>'+newObj.title+'</p>';
-                    // str+='<p class="new-content">'+newObj.content+'</p>';
                     var str = '<div class="top">' + '<h3>' + newObj.buildingName + ' ' + newObj.roomNumber + '</h3></div>';
                     str+='<div class="txt">' + '<span><em>￥</em>' + newObj.primeAmount + '</span><i class="i1">未缴纳</i></div>'
                     str+='<p>'+ newObj.startDate + ' - ' + newObj.endDate + '</p>';
@@ -232,59 +252,96 @@
                     }
                 }
             }
+            /**********************************本期账单的操作**************************************/
 
-            /*联网加载列表数据
-             在您的实际项目中,请参考官方写法: http://www.mescroll.com/api.html#tagUpCallback
-             请忽略getListDataFromNet的逻辑,这里仅仅是在本地模拟分页数据,本地演示用
-             实际项目以您服务器接口返回的数据为准,无需本地处理分页.
-             * */
+
+            /**********************************逾期的操作**************************************/
+
+            /*下拉刷新的回调 */
+            function overDownCallback(){
+                //联网加载数据
+                getListDataFromNet(0, 1,2,tel, function(data){
+                    //联网成功的回调,隐藏下拉刷新的状态
+                    overDueMescroll.endSuccess();
+                    //设置列表数据
+                    setOverDueListData(data, false);
+                }, function(){
+                    //联网失败的回调,隐藏下拉刷新的状态
+                    overDueMescroll.endErr();
+                });
+            }
+
+            function overUpCallback(page){
+                //联网加载数据
+                getListDataFromNet(page.num, page.size,2,tel, function(curPageData){
+                    overDueMescroll.endByPage(curPageData.rows.length, curPageData.total); //必传参数(当前页的数据个数, 总页数)
+                    //设置列表数据
+                    setOverDueListData(curPageData.rows, true);
+                }, function(){
+                    //联网失败的回调,隐藏下拉刷新和上拉加载的状态;
+                    overDueMescroll.endErr();
+                });
+            }
+
+
+            /*设置列表数据*/
+            function setOverDueListData(rows, isAppend) {
+                // var listDom=document.getElementById("newsList");
+                var listDom=document.getElementsByClassName("ul-q2 yq")[0];
+
+                for (var i = 0; i < rows.length; i++) {
+                    var newObj=rows[i];
+
+                    var str = '<div class="top">' + '<h3>' + newObj.buildingName + ' ' + newObj.roomNumber + '</h3></div>';
+                    str+='<div class="txt">' + '<span><em>￥</em>' + newObj.primeAmount + '</span>';
+                    if(newObj.overDueFineTheoryAmount > 0){
+                        str += '<i class="i2">' + '含滞纳金' + newObj.overDueFineTheoryAmount + '元</i>';
+                    }
+                    str+='</div><p>'+ newObj.startDate + ' - ' + newObj.endDate + '</p>';
+
+                    var liDom=document.createElement("li");
+                    liDom.innerHTML=str;
+
+                    if (isAppend) {
+                        listDom.appendChild(liDom);//加在列表的后面,上拉加载
+                    } else{
+                        listDom.insertBefore(liDom, listDom.firstChild);//加在列表的前面,下拉刷新
+                    }
+                }
+            }
+
+            /**********************************逾期的操作**************************************/
+
+
             var downIndex=0;
-            function getListDataFromNet(pageNum,pageSize,successCallback,errorCallback) {
+            function getListDataFromNet(pageNum,pageSize,type,tel,successCallback,errorCallback) {
+                var currUrl = "/payment/bill/listCurrentPage";
+                var overUrl = "/payment/bill/listOverduePage";
+                var historyUrl = "/payment/bill/listHistoryPage";
+                var url = currUrl;
+                if (type == 2){
+                    url = overUrl;
+                }else if (type == 3){
+                    url = historyUrl;
+                }
                 //延时一秒,模拟联网
                 setTimeout(function () {
                     try{
-                        // var newArr=[];
-                        // if(pageNum==0){
-                        //     //此处模拟下拉刷新返回的数据
-                        //     downIndex++;
-                        //     var newObj={title:"【新增新闻"+downIndex+"】 新增新闻的标题", content:"新增新闻的内容"};
-                        //     newArr.push(newObj);
-                        // }else{
-                        //     //此处模拟上拉加载返回的数据
-                        //     for (var i = 0; i < pageSize; i++) {
-                        //         var upIndex=(pageNum-1)*pageSize+i+1;
-                        //         var newObj={title:"【新闻"+upIndex+"】 标题标题标题标题标题标题", content:"内容内容内容内容内容内容内容内容内容内容"};
-                        //         newArr.push(newObj);
-                        //     }
-                        // }
                         $.ajax({
                             type: "post",
-                            url: "/payment/bill/listPage",
+                            url: url,
                             data: {
                                 "pageFrom": pageNum,
-                                "pageSize": pageSize
+                                "pageSize": pageSize,
+                                "tel": tel
                             },
                             dataType: "JSON",
                             success: function(result) {
-                                // var hotline = data.hotline.split(',');
-                                // var ul = document.body.querySelector('#complaintsHotline');
-                                // var span1 = document.createElement('span');
-                                // span1.className = 's1';
-                                // span1.innerHTML =	"<a href='javascript:phonecall(&apos;"+hotline[0]+"&apos;)'>"+hotline[0]+"</a>";
-                                // ul.appendChild(span1);
-                                //
-                                // var span2 = document.createElement('span');
-                                // span2.className = 's2';
-                                // span2.innerHTML =	"<a href='javascript:phonecall(&apos;"+hotline[1]+"&apos;)'>"+hotline[1]+"</a>";
-                                // ul.appendChild(span2);
-                                // $("")
                                 console.log(result);
-                                // alert("success");
                                 if (result.code !== 200){
                                     alert(result.message);
                                     return;
                                 }
-
                                 //联网成功的回调
                                 successCallback&&successCallback(result.data);
                             }
@@ -294,9 +351,8 @@
                         //联网失败的回调
                         errorCallback&&errorCallback();
                     }
-                },1000)
+                },500)
             }
-
         });
 
     </script>

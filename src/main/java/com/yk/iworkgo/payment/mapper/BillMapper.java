@@ -3,8 +3,10 @@ package com.yk.iworkgo.payment.mapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.yk.iworkgo.payment.entity.Bill;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
+import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
+import java.util.Map;
 
 /**
  * <p>
@@ -16,6 +18,8 @@ import java.util.List;
  */
 public interface BillMapper extends BaseMapper<Bill> {
 
-    List<Bill> getCurrentBillS(Page<Bill> page);
+    List<Bill> getCurrentBillS(Page<Bill> page, @Param("cond") Map<String,String> condition);
+
+    List<Bill> getOverdueBillS(Page<Bill> page, @Param("cond") Map<String,String> condition);
 
 }
