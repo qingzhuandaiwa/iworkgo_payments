@@ -81,7 +81,7 @@ public class BillController extends BaseController {
         condition.put("tenantId",enterpriseId.toString());
 
         try {
-            PageVO<Bill> data = billService.listCurrentBill(condition);
+            PageVO<Bill> data = billService.listRentCurrentBill(condition);
             rsp.setData(data);
             return rsp;
         }catch (Exception ex){
@@ -100,7 +100,7 @@ public class BillController extends BaseController {
         JSONObject object = JSONObject.parseObject(jsonString);
         if(object.getInteger("pageFrom") == null || object.getInteger("pageSize") == null) {
             rsp.setCode(400);
-            rsp.setMessage("未传入分页参数！");
+            rsp.setMessage("未传入分页参数");
             return rsp;
         }
 
@@ -115,7 +115,7 @@ public class BillController extends BaseController {
         condition.put("tenantId",enterpriseId.toString());
 
         try {
-            PageVO<Bill> data = billService.listOverudeBill(condition);
+            PageVO<Bill> data = billService.listRentOverdueBill(condition);
 //            data.getRows().forEach(o -> o.getPrimeAmount()!=null?o.getPrimeAmount().
 //                    add(o.getOverDueFineTheoryAmount()!=null?o.getOverDueFineTheoryAmount():BigDecimal.ZERO):BigDecimal.ZERO);
             if (data != null && data.getRows() != null){
@@ -135,5 +135,45 @@ public class BillController extends BaseController {
         }
     }
 
+    @RequestMapping("listRentHistoryPage")
+    @ResponseBody
+    public RespVo listRentHistoryPage(@RequestParam Map<String, String> condition){
+        RespVo rsp = new RespVo();
+        String jsonString = JSONUtils.toJSONString(condition);
+        JSONObject object = JSONObject.parseObject(jsonString);
+        if(object.getInteger("pageFrom") == null || object.getInteger("pageSize") == null) {
+            rsp.setCode(400);
+            rsp.setMessage("未传入分页参数");
+            return rsp;
+        }
+
+        Staff staff = getStaffInfo(object.getString("tel"));
+        if (staff == null || staff.getEnterpriseId() == null){
+            rsp.setCode(201);
+            rsp.setMessage("查询不到企业信息！ ");
+            return rsp;
+        }
+
+        Integer enterpriseId = staff.getEnterpriseId();
+        condition.put("tenantId",enterpriseId.toString());
+
+        try {
+            PageVO<Bill> data = billService.listRentHistoryBill(condition);
+            if (data != null && data.getRows() != null){
+                for (Bill bill : data.getRows()){
+                    if (bill.getOverDueFineTheoryAmount()!=null && bill.getOverDueFineTheoryAmount().compareTo(BigDecimal.ZERO) > 0){
+                        bill.setPrimeAmount(bill.getPrimeAmount().add(bill.getOverDueFineTheoryAmount()));
+                    }
+                }
+            }
+
+            rsp.setData(data);
+            return rsp;
+        }catch (Exception ex){
+            rsp.setCode(500);
+            rsp.setMessage("服务器内部错误,请联系管理员！");
+            return rsp;
+        }
+    }
 
 }

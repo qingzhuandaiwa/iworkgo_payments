@@ -22,8 +22,10 @@ import java.util.Optional;
  */
 public interface BillService extends IService<Bill> {
 
-    PageVO<Bill> listCurrentBill(Map<String,String> condition);
+    PageVO<Bill> listRentCurrentBill(Map<String,String> condition);
 
-    PageVO<Bill> listOverudeBill(Map<String,String> condition);
+    PageVO<Bill> listRentOverdueBill(Map<String,String> condition);
+
+    PageVO<Bill> listRentHistoryBill(Map<String,String> condition);
 
 }

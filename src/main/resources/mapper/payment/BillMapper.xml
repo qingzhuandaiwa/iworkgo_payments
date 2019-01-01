@@ -20,7 +20,7 @@
         <result column="isDel" property="isDel" jdbcType="INTEGER" />
     </resultMap>
 
-    <select id="getCurrentBillS" parameterType="java.util.Map" resultMap="BaseResultMap">
+    <select id="getCurrentRentBillS" parameterType="java.util.Map" resultMap="BaseResultMap">
         SELECT
         a.*
         FROM
@@ -44,7 +44,7 @@
         ORDER BY a.expiredDay asc
     </select>
 
-    <select id="getOverdueBillS" parameterType="java.util.Map" resultMap="BaseResultMap">
+    <select id="getOverdueRentBillS" parameterType="java.util.Map" resultMap="BaseResultMap">
         SELECT
         *
         FROM
@@ -59,6 +59,19 @@
             and tenantId = #{cond.tenantId}
         </if>
         ORDER BY expiredDay asc
+    </select>
+
+    <select id="getHistoryRentBillS" parameterType="java.util.Map" resultMap="BaseResultMap">
+        SELECT
+        *
+        FROM
+        t_bill
+        WHERE
+        objectType = 'CONTRACT'
+        AND billType LIKE '%租金%'
+        AND closedStatus = 'NORMAL'
+        AND settleStatus IN ("FINISH", "PART_SETTLE")
+        ORDER BY settledDate desc
     </select>
 
 </mapper>
