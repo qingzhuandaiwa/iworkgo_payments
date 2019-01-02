@@ -71,6 +71,9 @@
         AND billType LIKE '%租金%'
         AND closedStatus = 'NORMAL'
         AND settleStatus IN ("FINISH", "PART_SETTLE")
+        <if test="cond.tenantId != null and cond.tenantId != ''">
+            and tenantId = #{cond.tenantId}
+        </if>
         ORDER BY settledDate desc
     </select>
 

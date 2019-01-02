@@ -52,16 +52,6 @@
         </div>
         <div class="tab01 dn mescroll"    id="overDueMescroll">
         <ul class="ul-q2 yq">
-                <li>
-                    <!--<div class="top">-->
-                        <!--<h3>创意中央 1栋 301</h3>-->
-                    <!--</div>-->
-                    <!--<div class="txt">-->
-                        <!--<span><em>￥</em>15050</span>-->
-                        <!--<i class="i2">含滞纳金50元</i>-->
-                    <!--</div>-->
-                    <!--<p>2018.01.01-2018.12.31</p>-->
-                </li>
                 <!--<li>-->
                     <!--<div class="top">-->
                         <!--<h3>创意中央 1栋 301</h3>-->
@@ -72,60 +62,11 @@
                     <!--</div>-->
                     <!--<p>2018.01.01-2018.12.31</p>-->
                 <!--</li>-->
-                <!--<li>-->
-                    <!--<div class="top">-->
-                        <!--<h3>创意中央 1栋 301</h3>-->
-                    <!--</div>-->
-                    <!--<div class="txt">-->
-                        <!--<span><em>￥</em>15050</span>-->
-                        <!--<i class="i2">含滞纳金50元</i>-->
-                    <!--</div>-->
-                    <!--<p>2018.01.01-2018.12.31</p>-->
-                <!--</li>-->
-                <!--<li>-->
-                    <!--<div class="top">-->
-                        <!--<h3>创意中央 1栋 301</h3>-->
-                    <!--</div>-->
-                    <!--<div class="txt">-->
-                        <!--<span><em>￥</em>15050</span>-->
-                        <!--<i class="i2">含滞纳金50元</i>-->
-                    <!--</div>-->
-                    <!--<p>2018.01.01-2018.12.31</p>-->
-                <!--</li>-->
+
             </ul>
         </div>
         <div class="tab01 dn mescroll" id="historyMescroll">
             <ul class="ul-q2 ls">
-                <li>
-                    <div class="top">
-                       <span>2018.01.01</span><h3>创意中央 1栋 301</h3>
-                    </div>
-                    <div class="txt">
-                        <span><em>￥</em>15050</span>
-                        <i class="i2">含滞纳金50元</i><i class="i3">结清</i>
-                    </div>
-                    <p>2018.01.01-2018.12.31</p>
-                </li>
-                <!--<li>-->
-                    <!--<div class="top">-->
-                       <!--<span>2018.01.01</span><h3>创意中央 1栋 301</h3>-->
-                    <!--</div>-->
-                    <!--<div class="txt">-->
-                        <!--<span><em>￥</em>15050</span>-->
-                        <!--<i class="i3">结清</i>-->
-                    <!--</div>-->
-                    <!--<p>2018.01.01-2018.12.31</p>-->
-                <!--</li>-->
-                <!--<li>-->
-                    <!--<div class="top">-->
-                       <!--<span>2018.01.01</span><h3>创意中央 1栋 301</h3>-->
-                    <!--</div>-->
-                    <!--<div class="txt">-->
-                        <!--<span><em>￥</em>15050</span>-->
-                        <!--<i class="i2">含滞纳金50元</i><i class="i3">结清</i>-->
-                    <!--</div>-->
-                    <!--<p>2018.01.01-2018.12.31</p>-->
-                <!--</li>-->
                 <!--<li>-->
                     <!--<div class="top">-->
                        <!--<span>2018.01.01</span><h3>创意中央 1栋 301</h3>-->
@@ -241,7 +182,11 @@
                     if(newObj.overDueFineTheoryAmount > 0){
                         str += '<i class="i2">' + '含滞纳金' + newObj.overDueFineTheoryAmount + '元</i>';
                     }
-                    str+='<i class="i3">结清</i></div><p>'+ newObj.startDate + ' - ' + newObj.endDate + '</p>';
+                    if (newObj.settleStatus === 'PART_SETTLE'){
+                        str+='<i class="i1">部分结清</i></div><p>'+ newObj.startDate + ' - ' + newObj.endDate + '</p>';
+                    }else {
+                        str+='<i class="i3">结清</i></div><p>'+ newObj.startDate + ' - ' + newObj.endDate + '</p>';
+                    }
 
                     var liDom=document.createElement("li");
                     liDom.innerHTML=str;

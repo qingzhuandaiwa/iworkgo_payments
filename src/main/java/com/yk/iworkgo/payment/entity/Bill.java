@@ -249,6 +249,7 @@ public class Bill implements Serializable {
      * 结清时间
      */
     @TableField("settledDate")
+    @JsonFormat(pattern = "yyyy.MM.dd",timezone="GMT+8")
     private LocalDateTime settledDate;
 
     /**
