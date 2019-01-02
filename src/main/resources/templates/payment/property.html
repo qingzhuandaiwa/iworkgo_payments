@@ -86,7 +86,7 @@
     <script type="text/javascript">
         // var tel = '';
         // var tel = '17705160242';
-        var tel = '15861804833';
+        var tel = '158618048331';
 
         $(function(){
             //创建MeScroll对象
@@ -363,8 +363,12 @@
                             success: function(result) {
                                 console.log(result);
                                 if (result.code !== 200){
-                                    alert(result.message);
-                                    return;
+                                    layer.open({
+                                        content: result.message
+                                        ,skin: 'msg'
+                                        ,time: 1 //2秒后自动关闭
+                                    });
+                                    errorCallback&&errorCallback();
                                 }
                                 //联网成功的回调
                                 successCallback&&successCallback(result.data);

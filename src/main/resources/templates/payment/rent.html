@@ -35,48 +35,17 @@
             <li><a href="javascript:;">逾期未缴账单</a></li>
             <li><a href="javascript:;">缴费记录</a></li>
         </ul>
-        <!--<p>${appSecret!}</p>-->
         <div class="tab01 mescroll"    id="currentMescroll" >
             <ul class="ul-q2 bq">
-                <!--<li>-->
-                    <!--<div class="top">-->
-                        <!--<h3>创意中央 1栋 301</h3>-->
-                    <!--</div>-->
-                    <!--<div class="txt">-->
-                        <!--<span style="width: max-content"><em>￥</em>15000</span><i class="i1">未缴纳</i>-->
-                    <!--</div>-->
-                    <!--<p>2018.01.01-2018.12.31</p>-->
-                <!--</li>-->
             </ul>
-
         </div>
         <div class="tab01 dn mescroll"    id="overDueMescroll">
         <ul class="ul-q2 yq">
-                <!--<li>-->
-                    <!--<div class="top">-->
-                        <!--<h3>创意中央 1栋 301</h3>-->
-                    <!--</div>-->
-                    <!--<div class="txt">-->
-                        <!--<span><em>￥</em>15050</span>-->
-                        <!--<i class="i2">含滞纳金50元</i>-->
-                    <!--</div>-->
-                    <!--<p>2018.01.01-2018.12.31</p>-->
-                <!--</li>-->
-
-            </ul>
+        </ul>
         </div>
         <div class="tab01 dn mescroll" id="historyMescroll">
             <ul class="ul-q2 ls">
-                <!--<li>-->
-                    <!--<div class="top">-->
-                       <!--<span>2018.01.01</span><h3>创意中央 1栋 301</h3>-->
-                    <!--</div>-->
-                    <!--<div class="txt">-->
-                        <!--<span><em>￥</em>15050</span>-->
-                        <!--<i class="i2">含滞纳金50元</i><i class="i3">结清</i>-->
-                    <!--</div>-->
-                    <!--<p>2018.01.01-2018.12.31</p>-->
-                <!--</li>-->
+
             </ul>
         </div>
     </div>
@@ -224,24 +193,8 @@
                     //联网成功的回调,隐藏下拉刷新和上拉加载的状态;
                     //mescroll会根据传的参数,自动判断列表如果无任何数据,则提示空;列表无下一页数据,则提示无更多数据;
                     console.log("page.num="+page.num+", page.size="+page.size+", curPageData.length="+curPageData.rows);
-
                     //方法一(推荐): 后台接口有返回列表的总页数 totalPage
                     currMescroll.endByPage(curPageData.rows.length, curPageData.total); //必传参数(当前页的数据个数, 总页数)
-
-                    //方法二(推荐): 后台接口有返回列表的总数据量 totalSize
-                    //mescroll.endBySize(curPageData.length, totalSize); //必传参数(当前页的数据个数, 总数据量)
-
-                    //方法三(推荐): 您有其他方式知道是否有下一页 hasNext
-                    //mescroll.endSuccess(curPageData.length, hasNext); //必传参数(当前页的数据个数, 是否有下一页true/false)
-
-                    //方法四 (不推荐),会存在一个小问题:比如列表共有20条数据,每页加载10条,共2页.如果只根据当前页的数据个数判断,则需翻到第三页才会知道无更多数据,如果传了hasNext,则翻到第二页即可显示无更多数据.
-                    // mescroll.endSuccess(curPageData.length);
-
-                    //提示:curPageData.length必传的原因:
-                    // 1.判断是否有下一页的首要依据: 当传的值小于page.size时,则一定会认为无更多数据.
-                    // 2.比传入的totalPage, totalSize, hasNext具有更高的判断优先级
-                    // 3.使配置的noMoreSize生效
-
                     //设置列表数据
                     setCurrListData(curPageData.rows, true);
                 }, function(){
@@ -362,8 +315,12 @@
                             success: function(result) {
                                 console.log(result);
                                 if (result.code !== 200){
-                                    alert(result.message);
-                                    return;
+                                    layer.open({
+                                        content: result.message
+                                        ,skin: 'msg'
+                                        ,time: 1 //2秒后自动关闭
+                                    });
+                                    errorCallback&&errorCallback();
                                 }
                                 //联网成功的回调
                                 successCallback&&successCallback(result.data);
