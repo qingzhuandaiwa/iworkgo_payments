@@ -7,6 +7,7 @@ import com.baomidou.mybatisplus.core.conditions.Wrapper;
 import com.baomidou.mybatisplus.core.toolkit.StringUtils;
 import com.yk.iworkgo.common.PageVO;
 import com.yk.iworkgo.common.RespVo;
+import com.yk.iworkgo.common.UserInfoVO;
 import com.yk.iworkgo.payment.entity.Bill;
 import com.yk.iworkgo.payment.entity.Staff;
 import com.yk.iworkgo.payment.service.BillService;
@@ -14,11 +15,8 @@ import com.yk.iworkgo.payment.service.DataservicesService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.bind.annotation.RestController;
 import com.yk.iworkgo.common.BaseController;
 
 import java.math.BigDecimal;
@@ -49,12 +47,18 @@ public class BillController extends BaseController {
     BillService billService;
 
     @RequestMapping("/property")
-    public String toPropertyPage(){
+    public String toPropertyPage(@ModelAttribute("userInfo") UserInfoVO userInfo, @RequestParam String userId,@RequestParam String enterpriseId,@RequestParam String tel){
+        userInfo.setUserId(userId);
+        userInfo.setEnterpriseId(enterpriseId);
+        userInfo.setTel(tel);
         return "payment/property";
     }
 
     @RequestMapping("/rent")
-    public String toRentPage(){
+    public String toRentPage(@ModelAttribute("userInfo") UserInfoVO userInfo, @RequestParam String userId,@RequestParam String enterpriseId,@RequestParam String tel){
+        userInfo.setUserId(userId);
+        userInfo.setEnterpriseId(enterpriseId);
+        userInfo.setTel(tel);
         return "payment/rent";
     }
 
@@ -70,20 +74,24 @@ public class BillController extends BaseController {
             rsp.setMessage("未传入分页参数");
             return rsp;
         }
-//        if (StringUtils.isEmpty(object.getString("tel"))){
-//            rsp.setCode(400);
-//            rsp.setMessage("电话号码获取失败！");
-//            return rsp;
-//        }
-        Staff staff = getStaffInfo(object.getString("tel"));
-        if (staff == null || staff.getEnterpriseId() == null){
+
+        if(StringUtils.isEmpty(object.getString("tenantId"))) {
             rsp.setCode(201);
-            rsp.setMessage("查询不到企业信息！");
+            rsp.setMessage("未传入企业id");
             return rsp;
         }
 
-        Integer enterpriseId = staff.getEnterpriseId();
-        condition.put("tenantId",enterpriseId.toString());
+//        Staff staff = getStaffInfo(object.getString("tel"));
+//        if (staff == null || staff.getEnterpriseId() == null){
+//            rsp.setCode(201);
+//            rsp.setMessage("查询不到企业信息！");
+//            return rsp;
+//        }
+//
+//        Integer enterpriseId = staff.getEnterpriseId();
+
+
+//        condition.put("tenantId",enterpriseId.toString());
 
         try {
             PageVO<Bill> data = billService.listCurrentBill(condition);
@@ -108,16 +116,20 @@ public class BillController extends BaseController {
             rsp.setMessage("未传入分页参数");
             return rsp;
         }
-
-        Staff staff = getStaffInfo(object.getString("tel"));
-        if (staff == null || staff.getEnterpriseId() == null){
+        if(StringUtils.isEmpty(object.getString("tenantId"))) {
             rsp.setCode(201);
-            rsp.setMessage("查询不到企业信息！ ");
+            rsp.setMessage("未传入企业id");
             return rsp;
         }
-
-        Integer enterpriseId = staff.getEnterpriseId();
-        condition.put("tenantId",enterpriseId.toString());
+//        Staff staff = getStaffInfo(object.getString("tel"));
+//        if (staff == null || staff.getEnterpriseId() == null){
+//            rsp.setCode(201);
+//            rsp.setMessage("查询不到企业信息！ ");
+//            return rsp;
+//        }
+//
+//        Integer enterpriseId = staff.getEnterpriseId();
+//        condition.put("tenantId",enterpriseId.toString());
 
         try {
             PageVO<Bill> data = billService.listOverdueBill(condition);
@@ -151,16 +163,20 @@ public class BillController extends BaseController {
             rsp.setMessage("未传入分页参数");
             return rsp;
         }
-
-        Staff staff = getStaffInfo(object.getString("tel"));
-        if (staff == null || staff.getEnterpriseId() == null){
+        if(StringUtils.isEmpty(object.getString("tenantId"))) {
             rsp.setCode(201);
-            rsp.setMessage("查询不到企业信息！ ");
+            rsp.setMessage("未传入企业id");
             return rsp;
         }
-
-        Integer enterpriseId = staff.getEnterpriseId();
-        condition.put("tenantId",enterpriseId.toString());
+//        Staff staff = getStaffInfo(object.getString("tel"));
+//        if (staff == null || staff.getEnterpriseId() == null){
+//            rsp.setCode(201);
+//            rsp.setMessage("查询不到企业信息！ ");
+//            return rsp;
+//        }
+//
+//        Integer enterpriseId = staff.getEnterpriseId();
+//        condition.put("tenantId",enterpriseId.toString());
 
         try {
             PageVO<Bill> data = billService.listHistoryBill(condition);
