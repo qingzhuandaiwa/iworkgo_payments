@@ -32,6 +32,10 @@ spring:
       prefix: classpath:/templates/
       suffix: .html
 
+logging:
+  level:
+    com.yk.iworkgo.payment.mapper: debug
+
 #  cache:
 #    type: CAFFEINE
 #    cache-names: payment

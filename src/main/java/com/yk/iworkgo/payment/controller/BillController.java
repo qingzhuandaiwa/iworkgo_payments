@@ -48,9 +48,14 @@ public class BillController extends BaseController {
     @Autowired
     BillService billService;
 
-    @RequestMapping("/index")
-    public String index(){
+    @RequestMapping("/property")
+    public String toPropertyPage(){
         return "payment/property";
+    }
+
+    @RequestMapping("/rent")
+    public String toRentPage(){
+        return "payment/rent";
     }
 
 
@@ -81,7 +86,7 @@ public class BillController extends BaseController {
         condition.put("tenantId",enterpriseId.toString());
 
         try {
-            PageVO<Bill> data = billService.listRentCurrentBill(condition);
+            PageVO<Bill> data = billService.listCurrentBill(condition);
             rsp.setData(data);
             return rsp;
         }catch (Exception ex){
@@ -115,7 +120,7 @@ public class BillController extends BaseController {
         condition.put("tenantId",enterpriseId.toString());
 
         try {
-            PageVO<Bill> data = billService.listRentOverdueBill(condition);
+            PageVO<Bill> data = billService.listOverdueBill(condition);
 //            data.getRows().forEach(o -> o.getPrimeAmount()!=null?o.getPrimeAmount().
 //                    add(o.getOverDueFineTheoryAmount()!=null?o.getOverDueFineTheoryAmount():BigDecimal.ZERO):BigDecimal.ZERO);
             if (data != null && data.getRows() != null){
@@ -135,9 +140,9 @@ public class BillController extends BaseController {
         }
     }
 
-    @RequestMapping("listRentHistoryPage")
+    @RequestMapping("listHistoryPage")
     @ResponseBody
-    public RespVo listRentHistoryPage(@RequestParam Map<String, String> condition){
+    public RespVo listHistoryPage(@RequestParam Map<String, String> condition){
         RespVo rsp = new RespVo();
         String jsonString = JSONUtils.toJSONString(condition);
         JSONObject object = JSONObject.parseObject(jsonString);
@@ -158,7 +163,7 @@ public class BillController extends BaseController {
         condition.put("tenantId",enterpriseId.toString());
 
         try {
-            PageVO<Bill> data = billService.listRentHistoryBill(condition);
+            PageVO<Bill> data = billService.listHistoryBill(condition);
             if (data != null && data.getRows() != null){
                 for (Bill bill : data.getRows()){
                     if (bill.getOverDueFineTheoryAmount()!=null && bill.getOverDueFineTheoryAmount().compareTo(BigDecimal.ZERO) > 0){

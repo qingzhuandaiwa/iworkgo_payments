@@ -2,7 +2,7 @@
 <html lang="zh-CN">
 <head>
 	<meta charset="UTF-8" />
-	<title>物业费缴纳</title>
+	<title>房租缴纳</title>
 	<meta name="viewport" content="width=device-width, initial-scale=1.0,user-scalable=no" />
 	<meta name="keywords" content="" />
 	<meta name="description" content="" />
@@ -85,7 +85,6 @@
 
     <script type="text/javascript">
         // var tel = '';
-        // var tel = '17705160242';
         var tel = '15861804833';
 
         $(function(){
@@ -337,7 +336,7 @@
 
             var downIndex=0;
             function getListDataFromNet(pageNum,pageSize,type,tel,successCallback,errorCallback) {
-                var billType='wy';
+                var billType='zj';
                 var currUrl = "/payment/bill/listCurrentPage";
                 var overUrl = "/payment/bill/listOverduePage";
                 var historyUrl = "/payment/bill/listHistoryPage";

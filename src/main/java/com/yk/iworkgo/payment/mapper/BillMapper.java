@@ -18,10 +18,10 @@ import java.util.Map;
  */
 public interface BillMapper extends BaseMapper<Bill> {
 
-    List<Bill> getCurrentRentBillS(Page<Bill> page, @Param("cond") Map<String,String> condition);
+    List<Bill> getCurrentBillS(Page<Bill> page, @Param("cond") Map<String,String> condition);
 
-    List<Bill> getOverdueRentBillS(Page<Bill> page, @Param("cond") Map<String,String> condition);
+    List<Bill> getOverdueBillS(Page<Bill> page, @Param("cond") Map<String,String> condition);
 
-    List<Bill> getHistoryRentBillS(Page<Bill> page, @Param("cond") Map<String,String> condition);
+    List<Bill> getHistoryBillS(Page<Bill> page, @Param("cond") Map<String,String> condition);
 
 }

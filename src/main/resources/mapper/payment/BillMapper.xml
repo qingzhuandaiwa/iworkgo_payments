@@ -20,7 +20,7 @@
         <result column="isDel" property="isDel" jdbcType="INTEGER" />
     </resultMap>
 
-    <select id="getCurrentRentBillS" parameterType="java.util.Map" resultMap="BaseResultMap">
+    <select id="getCurrentBillS" parameterType="java.util.Map" resultMap="BaseResultMap">
         SELECT
         a.*
         FROM
@@ -32,7 +32,16 @@
         FROM
         t_bill
         WHERE
-        objectType='CONTRACT' and expiredDay > 0 and billType LIKE '%租金%' and closedStatus='NORMAL'
+        objectType='CONTRACT' and expiredDay > 0
+        <choose>
+            <when test="cond.billType=='zj'">
+                and billType LIKE '%租金%'
+            </when>
+            <otherwise>
+                and billType LIKE '%物业%'
+            </otherwise>
+        </choose>
+        and closedStatus='NORMAL'
         and settleStatus IN ("IN_PROCESS","PART_SETTLE")
         <if test="cond.tenantId != null and cond.tenantId != ''">
             and tenantId = #{cond.tenantId}
@@ -44,7 +53,7 @@
         ORDER BY a.expiredDay asc
     </select>
 
-    <select id="getOverdueRentBillS" parameterType="java.util.Map" resultMap="BaseResultMap">
+    <select id="getOverdueBillS" parameterType="java.util.Map" resultMap="BaseResultMap">
         SELECT
         *
         FROM
@@ -52,7 +61,14 @@
         WHERE
         objectType = 'CONTRACT'
         <![CDATA[ AND expiredDay < 0 ]]>
-        AND billType LIKE '%租金%'
+        <choose>
+            <when test="cond.billType=='zj'">
+                and billType LIKE '%租金%'
+            </when>
+            <otherwise>
+                and billType LIKE '%物业%'
+            </otherwise>
+        </choose>
         AND closedStatus = 'NORMAL'
         AND settleStatus IN ("IN_PROCESS", "PART_SETTLE")
         <if test="cond.tenantId != null and cond.tenantId != ''">
@@ -61,14 +77,21 @@
         ORDER BY expiredDay asc
     </select>
 
-    <select id="getHistoryRentBillS" parameterType="java.util.Map" resultMap="BaseResultMap">
+    <select id="getHistoryBillS" parameterType="java.util.Map" resultMap="BaseResultMap">
         SELECT
         *
         FROM
         t_bill
         WHERE
         objectType = 'CONTRACT'
-        AND billType LIKE '%租金%'
+        <choose>
+            <when test="cond.billType=='zj'">
+                and billType LIKE '%租金%'
+            </when>
+            <otherwise>
+                and billType LIKE '%物业%'
+            </otherwise>
+        </choose>
         AND closedStatus = 'NORMAL'
         AND settleStatus IN ("FINISH", "PART_SETTLE")
         <if test="cond.tenantId != null and cond.tenantId != ''">

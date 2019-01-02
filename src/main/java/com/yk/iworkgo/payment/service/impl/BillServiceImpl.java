@@ -33,23 +33,23 @@ public class BillServiceImpl extends ServiceImpl<BillMapper, Bill> implements Bi
 
 
     @Override
-    public PageVO<Bill> listRentCurrentBill(Map<String, String> condition) {
+    public PageVO<Bill> listCurrentBill(Map<String, String> condition) {
         Page<Bill> page = BuildPageHelper.buildPage(condition);
-        List<Bill> billS = billMapper.getCurrentRentBillS(page,condition);
+        List<Bill> billS = billMapper.getCurrentBillS(page,condition);
         return new PageVO<>(billS,page);
     }
 
     @Override
-    public PageVO<Bill> listRentOverdueBill(Map<String, String> condition) {
+    public PageVO<Bill> listOverdueBill(Map<String, String> condition) {
         Page<Bill> page = BuildPageHelper.buildPage(condition);
-        List<Bill> billS = billMapper.getOverdueRentBillS(page,condition);
+        List<Bill> billS = billMapper.getOverdueBillS(page,condition);
         return new PageVO<>(billS,page);
     }
 
     @Override
-    public PageVO<Bill> listRentHistoryBill(Map<String, String> condition) {
+    public PageVO<Bill> listHistoryBill(Map<String, String> condition) {
         Page<Bill> page = BuildPageHelper.buildPage(condition);
-        List<Bill> billS = billMapper.getHistoryRentBillS(page,condition);
+        List<Bill> billS = billMapper.getHistoryBillS(page,condition);
         return new PageVO<>(billS,page);
     }
 
