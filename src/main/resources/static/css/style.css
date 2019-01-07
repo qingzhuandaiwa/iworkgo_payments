@@ -49,6 +49,22 @@
 .ul-q2 li  .top{
     overflow: hidden;
 }
+
+/*add by guojing 20190107 start*/
+.ul-q2 li .top .i3{
+    color:#4391F0;
+    background-color: #E3EFFD;
+    font-size: 12px;
+    font-style: normal;
+    display: inline-block;
+    vertical-align: middle;
+    line-height: 1.2em;
+    margin-top: 0px;
+    margin-left: 0px;
+    border-radius: 8px;
+}
+/*add by guojing 20190107 end*/
+
 .ul-q2 li  .top span{
     display: block;
     float: right;
