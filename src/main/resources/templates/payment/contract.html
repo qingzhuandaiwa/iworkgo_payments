@@ -94,23 +94,18 @@
 
         /*设置列表数据*/
         function setListData(rows, isAppend) {
+            console.log(rows);
             // var listDom=document.getElementById("newsList");
-            var listDom=document.getElementsByClassName("ul-q2 bq")[0];
+            var listDom=document.getElementsByClassName("ul-q2")[0];
 
             for (var i = 0; i < rows.length; i++) {
                 var newObj=rows[i];
 
-            <div class="top">
-                    <i class="i3">结清最近</i>
-                    <span>2018.01.01</span>
-                </div>
-                <div class="txt">
-                    <h3>创意中央 1栋 301</h3>
-                </div>
 
                 var str = '<div class="top">';
-                if (newObj.) 
-
+                str += '<i class="i3">房租合约</i>';
+                str += '<span>' + newObj.leaseBeginDate + '</span></div>';
+                str += '<div class="txt"><h3>' + newObj.buildingName + '  ' +  newObj.contractNo + '</h3></div>';
 
                 var liDom=document.createElement("li");
                 liDom.innerHTML=str;

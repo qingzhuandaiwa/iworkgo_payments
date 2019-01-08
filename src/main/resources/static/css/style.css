@@ -62,7 +62,21 @@
     margin-top: 0px;
     margin-left: 0px;
     border-radius: 8px;
+
 }
+
+.ul-q2 li .txt h3{
+    width: 70%;
+    font-size: 14px;
+    font-weight: normal;
+    color:#222;
+    line-height: 1.64em;
+    margin-bottom: 1px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap; /*文本不换行，这样超出一行的部分被截取，显示...*/
+}
+
 /*add by guojing 20190107 end*/
 
 .ul-q2 li  .top span{
