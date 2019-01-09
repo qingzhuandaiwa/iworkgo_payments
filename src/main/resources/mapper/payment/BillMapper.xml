@@ -3,42 +3,42 @@
 <mapper namespace="com.yk.iworkgo.payment.mapper.BillMapper">
     <resultMap id="BaseResultMap" type="com.yk.iworkgo.payment.entity.Bill" >
         <id column="billId" property="billId" jdbcType="BIGINT" />
-        <result column="billType" property="billType" jdbcType="VARCHAR" />
-        <result column="primeAmount" property="primeAmount" jdbcType="DECIMAL" />
+        <result column="bill_type" property="billType" jdbcType="VARCHAR" />
+        <result column="prime_amount" property="primeAmount" jdbcType="DECIMAL" />
 
-        <result column="overDueFineTheoryAmount" property="overDueFineTheoryAmount" jdbcType="DECIMAL" />
-        <result column="actualAmount" property="actualAmount" jdbcType="DECIMAL" />
-        <result column="buildingName" property="buildingName" jdbcType="VARCHAR" />
-        <result column="roomNumber" property="roomNumber" jdbcType="VARCHAR" />
-        <result column="overDueFineStatus" property="overDueFineStatus" jdbcType="VARCHAR" />
+        <result column="over_due_fine_theory_amount" property="overDueFineTheoryAmount" jdbcType="DECIMAL" />
+        <result column="actual_amount" property="actualAmount" jdbcType="DECIMAL" />
+        <result column="building_name" property="buildingName" jdbcType="VARCHAR" />
+        <result column="room_number" property="roomNumber" jdbcType="VARCHAR" />
+        <result column="over_due_fine_status" property="overDueFineStatus" jdbcType="VARCHAR" />
 
-        <result column="dueStatusName" property="dueStatusName" jdbcType="VARCHAR" />
-        <result column="settleStatus" property="settleStatus" jdbcType="VARCHAR" />
-        <result column="settleStatusName" property="settleStatusName" jdbcType="VARCHAR" />
-        <result column="startDate" property="startDate" jdbcType="TIMESTAMP" />
-        <result column="endDate" property="endDate" jdbcType="TIMESTAMP" />
-        <result column="isDel" property="isDel" jdbcType="INTEGER" />
+        <result column="due_status_name" property="dueStatusName" jdbcType="VARCHAR" />
+        <result column="settle_status" property="settleStatus" jdbcType="VARCHAR" />
+        <result column="settle_status_name" property="settleStatusName" jdbcType="VARCHAR" />
+        <result column="start_date" property="startDate" jdbcType="TIMESTAMP" />
+        <result column="end_date" property="endDate" jdbcType="TIMESTAMP" />
+        <result column="is_del" property="isDel" jdbcType="INTEGER" />
     </resultMap>
 
     <sql id="selectSql">
         FROM
-        t_bill
+        bill
         WHERE
-        objectType = 'CONTRACT'
-        AND expiredDay > 0
+        object_type = 'CONTRACT'
+        AND expired_day > 0
         <choose>
             <when test="cond.billType=='zj'">
-                and billType LIKE '%租金%'
+                and bill_type LIKE '%租金%'
             </when>
             <otherwise>
-                and billType LIKE '%物业%'
+                and bill_type LIKE '%物业%'
             </otherwise>
         </choose>
 
-        AND closedStatus = 'NORMAL'
-        AND settleStatus IN ("IN_PROCESS", "PART_SETTLE")
+        AND closed_status = 'NORMAL'
+        AND settle_status IN ("IN_PROCESS", "PART_SETTLE")
         <if test="cond.tenantId != null and cond.tenantId != ''">
-            and tenantId = #{cond.tenantId}
+            and tenant_id = #{cond.tenantId}
         </if>
 
     </sql>
@@ -47,64 +47,64 @@
     <select id="getCurrentBillS" parameterType="java.util.Map" resultMap="BaseResultMap">
         SELECT b.*
         FROM (
-            SELECT objectId,
-			MIN(expiredDay) AS expiredDay
-            <include refid="selectSql" />
-			GROUP BY
-			objectId
-	    ) a
+        SELECT object_id,
+        MIN(expired_day) AS expiredDay
+        <include refid="selectSql" />
+        GROUP BY
+        object_id
+        ) a
         INNER JOIN (
         SELECT *
         <include refid="selectSql" />
-        ) b ON a.objectId = b.objectId
-        AND a.expiredDay = b.expiredDay
+        ) b ON a.object_id = b.object_id
+        AND a.expiredDay = b.expired_day
         ORDER BY
-        b.expiredDay ASC
+        b.expired_day ASC
     </select>
 
     <select id="getOverdueBillS" parameterType="java.util.Map" resultMap="BaseResultMap">
         SELECT
         *
         FROM
-        t_bill
+        bill
         WHERE
-        objectType = 'CONTRACT'
-        <![CDATA[ AND expiredDay < 0 ]]>
+        object_type = 'CONTRACT'
+        <![CDATA[ AND expired_day < 0 ]]>
         <choose>
             <when test="cond.billType=='zj'">
-                and billType LIKE '%租金%'
+                and bill_type LIKE '%租金%'
             </when>
             <otherwise>
-                and billType LIKE '%物业%'
+                and bill_type LIKE '%物业%'
             </otherwise>
         </choose>
-        AND closedStatus = 'NORMAL'
-        AND settleStatus IN ("IN_PROCESS", "PART_SETTLE")
+        AND closed_status = 'NORMAL'
+        AND settle_status IN ("IN_PROCESS", "PART_SETTLE")
         <if test="cond.tenantId != null and cond.tenantId != ''">
-            and tenantId = #{cond.tenantId}
+            and tenant_id = #{cond.tenantId}
         </if>
-        ORDER BY expiredDay asc
+        ORDER BY expired_day asc
     </select>
 
     <select id="getHistoryBillS" parameterType="java.util.Map" resultMap="BaseResultMap">
         SELECT
         *
         FROM
-        t_bill
+        bill
         WHERE
-        objectType = 'CONTRACT'
+        object_type = 'CONTRACT'
         <choose>
             <when test="cond.billType=='zj'">
-                and billType LIKE '%租金%'
+                and bill_type LIKE '%租金%'
             </when>
             <otherwise>
-                and billType LIKE '%物业%'
+                and bill_type LIKE '%物业%'
             </otherwise>
         </choose>
-        AND closedStatus = 'NORMAL'
-        AND settleStatus IN ("FINISH", "PART_SETTLE")
+        AND closed_status = 'NORMAL'
+        AND settle_status IN ("FINISH", "PART_SETTLE")
         <if test="cond.tenantId != null and cond.tenantId != ''">
-            and tenantId = #{cond.tenantId}
+            and tenant_id = #{cond.tenantId}
         </if>
         ORDER BY settledDate desc
     </select>

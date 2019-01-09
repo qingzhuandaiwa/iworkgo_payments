@@ -3,15 +3,12 @@ package com.yk.iworkgo.payment.controller;
 
 import com.alibaba.druid.support.json.JSONUtils;
 import com.alibaba.fastjson.JSONObject;
-import com.baomidou.mybatisplus.core.conditions.Wrapper;
 import com.baomidou.mybatisplus.core.toolkit.StringUtils;
 import com.yk.iworkgo.common.PageVO;
 import com.yk.iworkgo.common.RespVo;
 import com.yk.iworkgo.common.UserInfoVO;
 import com.yk.iworkgo.payment.entity.Bill;
-import com.yk.iworkgo.payment.entity.Staff;
 import com.yk.iworkgo.payment.service.BillService;
-import com.yk.iworkgo.payment.service.DataservicesService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
@@ -20,10 +17,7 @@ import org.springframework.web.bind.annotation.*;
 import com.yk.iworkgo.common.BaseController;
 
 import java.math.BigDecimal;
-import java.util.Iterator;
-import java.util.List;
 import java.util.Map;
-import java.util.Optional;
 
 /**
  * <p>
@@ -81,18 +75,6 @@ public class BillController extends BaseController {
             rsp.setMessage("未传入企业id");
             return rsp;
         }
-
-//        Staff staff = getStaffInfo(object.getString("tel"));
-//        if (staff == null || staff.getEnterpriseId() == null){
-//            rsp.setCode(201);
-//            rsp.setMessage("查询不到企业信息！");
-//            return rsp;
-//        }
-//
-//        Integer enterpriseId = staff.getEnterpriseId();
-
-
-//        condition.put("tenantId",enterpriseId.toString());
 
         try {
             PageVO<Bill> data = billService.listCurrentBill(condition);

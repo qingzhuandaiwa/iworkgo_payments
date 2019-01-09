@@ -6,8 +6,8 @@ import com.yk.iworkgo.payment.entity.Contract;
 import com.yk.iworkgo.payment.mapper.ContractMapper;
 import com.yk.iworkgo.payment.service.ContractService;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
-import com.yk.iworkgo.utils.BuildPageHelper;
 import org.springframework.stereotype.Service;
+import com.yk.iworkgo.utils.BuildPageHelper;
 
 import javax.annotation.Resource;
 import java.util.List;
@@ -15,15 +15,14 @@ import java.util.Map;
 
 /**
  * <p>
- * 合同 服务实现类
+ * 合同(主表) 服务实现类
  * </p>
  *
  * @author guojing
- * @since 2019-01-07
+ * @since 2019-01-09
  */
 @Service
 public class ContractServiceImpl extends ServiceImpl<ContractMapper, Contract> implements ContractService {
-
     @Resource
     private ContractMapper contractMapper;
 

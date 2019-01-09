@@ -1,84 +1,127 @@
 package com.yk.iworkgo.payment.entity;
 
-import com.baomidou.mybatisplus.annotation.TableId;
 import java.time.LocalDateTime;
 import com.baomidou.mybatisplus.annotation.TableField;
 import java.io.Serializable;
 
-import com.baomidou.mybatisplus.annotation.TableName;
+import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.experimental.Accessors;
 
 /**
  * <p>
- * 合同
+ * 合同(主表)
  * </p>
  *
  * @author guojing
- * @since 2019-01-07
+ * @since 2019-01-09
  */
 @Data
 @EqualsAndHashCode(callSuper = false)
 @Accessors(chain = true)
-@TableName("t_contract")
 public class Contract implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
-    @TableId("contactId")
-    private Integer contactId;
+    private String contractId;
 
-    @TableField("contractNo")
+    /**
+     * 合同编号
+     */
     private String contractNo;
 
-    @TableField("enterpriseId")
-    private Integer enterpriseId;
+    /**
+     * 企业id
+     */
+    private String enterpriseId;
 
-    @TableField("enterpriseName")
+    /**
+     * 企业名称
+     */
     private String enterpriseName;
 
-    @TableField("parkId")
-    private Integer parkId;
+    /**
+     * 合同状态
+     */
+    private String contractState;
 
-    @TableField("parkName")
-    private String parkName;
+    /**
+     * 楼宇id
+     */
+    private String buildingId;
 
-    @TableField("buildingId")
-    private Integer buildingId;
-
-    @TableField("buildingName")
+    /**
+     * 楼宇名称
+     */
     private String buildingName;
 
-    @TableField("floorIds")
-    private String floorIds;
+    /**
+     * 邮箱
+     */
+    private String email;
 
-    private String floors;
+    /**
+     * 地址
+     */
+    private String address;
 
-    @TableField("roomIds")
-    private String roomIds;
+    /**
+     * 电话号码
+     */
+    private String tel;
 
-    private String rooms;
+    /**
+     * 面积
+     */
+    private String areaSize;
 
-    @TableField("leaseBeginDate")
-    private String leaseBeginDate;
+    /**
+     * 建筑类型
+     */
+    private String buildingType;
 
-    @TableField("leaseEndDate")
-    private String leaseEndDate;
+    /**
+     * 押金
+     */
+    private String deposit;
 
-    @TableField("isDel")
+    /**
+     * 押金单位
+     */
+    @TableField("depositUnitEnum")
+    private String depositUnitEnum;
+
+    /**
+     * 租约开始时间
+     */
+    private LocalDateTime leaseBeginDate;
+
+    /**
+     * 租约结束时间
+     */
+    private LocalDateTime leaseEndDate;
+
+    /**
+     * 签订日期
+     */
+    @JsonFormat(pattern = "yyyy.MM.dd",timezone="GMT+8")
+    private LocalDateTime signDate;
+
+    /**
+     * 是否删除(0未删除，1删除)
+     */
     private String isDel;
 
-    @TableField("cTime")
-    private LocalDateTime cTime;
+    /**
+     * 创建时间
+     */
+    private LocalDateTime ctime;
 
-    @TableField("uTime")
-    private LocalDateTime uTime;
+    /**
+     * 更新时间
+     */
+    private LocalDateTime utime;
 
-    @TableField(exist = false)
-    private String leaseId;
-
-    @TableField(exist = false)
-    private String leaseTermType;
 
 }
