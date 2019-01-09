@@ -78,7 +78,7 @@
         /*上拉加载的回调 page = {num:1, size:10}; num:当前页 从1开始, size:每页数据条数 */
         function upCallback(page){
             //联网加载数据
-            getListDataFromNet(page.num, 8,enterpriseId, function(curPageData){//一页最多显示8条
+            getListDataFromNet(page.num, 6,enterpriseId, function(curPageData){//一页最多显示8条
                 //联网成功的回调,隐藏下拉刷新和上拉加载的状态;
                 //mescroll会根据传的参数,自动判断列表如果无任何数据,则提示空;列表无下一页数据,则提示无更多数据;
                 //方法一(推荐): 后台接口有返回列表的总页数 totalPage
@@ -103,7 +103,15 @@
 
 
                 var str = '<div class="top">';
-                str += '<i class="i3">房租合约</i>';
+                if (newObj.leaseTermType === 'RENT'){
+                    str += '<i class="i3">房租合约</i>';
+                }else if (newObj.leaseTermType === 'PROPERTY'){
+                    str += '<i class="i3">物业合同</i>';
+                }else if (newObj.leaseTermType === 'OTHER'){
+                    str += '<i class="i3">其他</i>';
+                }else {
+                    str += '<i class="i3">无合约内容</i>';
+                }
                 str += '<span>' + newObj.leaseBeginDate + '</span></div>';
                 str += '<div class="txt"><h3>' + newObj.buildingName + '  ' +  newObj.contractNo + '</h3></div>';
 

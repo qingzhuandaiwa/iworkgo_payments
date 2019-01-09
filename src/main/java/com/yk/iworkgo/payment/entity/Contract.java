@@ -75,5 +75,10 @@ public class Contract implements Serializable {
     @TableField("uTime")
     private LocalDateTime uTime;
 
+    @TableField(exist = false)
+    private String leaseId;
+
+    @TableField(exist = false)
+    private String leaseTermType;
 
 }
