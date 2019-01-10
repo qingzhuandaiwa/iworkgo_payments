@@ -24,15 +24,15 @@
 <div class="main">
     <div class="mescroll"  id="mescroll" >
         <ul class="ul-q2">
-            <li>
-                <div class="top">
-                    <i class="i3">结清最近</i>
-                    <span>2018.01.01</span>
-                </div>
-                <div class="txt">
-                    <h3>创意中央 1栋 301</h3>
-                </div>
-            </li>
+            <!--<li>-->
+                <!--<div class="top">-->
+                    <!--<i class="i3">结清最近</i>-->
+                    <!--<span>2018.01.01</span>-->
+                <!--</div>-->
+                <!--<div class="txt">-->
+                    <!--<h3>创意中央 1栋 301</h3>-->
+                <!--</div>-->
+            <!--</li>-->
         </ul>
     </div>
 </div>
@@ -61,6 +61,8 @@
             }
         });
 
+        mescroll.setPageSize(8);
+
         /*下拉刷新的回调 */
         function downCallback(){
             //联网加载数据
@@ -78,11 +80,11 @@
         /*上拉加载的回调 page = {num:1, size:10}; num:当前页 从1开始, size:每页数据条数 */
         function upCallback(page){
             //联网加载数据
-            getListDataFromNet(page.num, 6,enterpriseId, function(curPageData){//一页最多显示8条
+            getListDataFromNet(page.num, page.size,enterpriseId, function(curPageData){//一页最多显示8条
                 //联网成功的回调,隐藏下拉刷新和上拉加载的状态;
                 //mescroll会根据传的参数,自动判断列表如果无任何数据,则提示空;列表无下一页数据,则提示无更多数据;
                 //方法一(推荐): 后台接口有返回列表的总页数 totalPage
-                mescroll.endByPage(curPageData.rows.length, curPageData.total); //必传参数(当前页的数据个数, 总页数)
+                mescroll.endByPage(curPageData.size, curPageData.total); //必传参数(当前页的数据个数, 总页数)
                 //设置列表数据
                 setListData(curPageData.rows, true);
             }, function(){

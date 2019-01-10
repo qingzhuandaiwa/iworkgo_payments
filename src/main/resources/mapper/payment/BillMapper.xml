@@ -28,10 +28,10 @@
         AND expired_day > 0
         <choose>
             <when test="cond.billType=='zj'">
-                and bill_type LIKE '%租金%'
+                and bill_type = '租金'
             </when>
             <otherwise>
-                and bill_type LIKE '%物业%'
+                and bill_type = '物业费'
             </otherwise>
         </choose>
 
@@ -72,10 +72,10 @@
         <![CDATA[ AND expired_day < 0 ]]>
         <choose>
             <when test="cond.billType=='zj'">
-                and bill_type LIKE '%租金%'
+                and bill_type = '租金'
             </when>
             <otherwise>
-                and bill_type LIKE '%物业%'
+                and bill_type = '物业费'
             </otherwise>
         </choose>
         AND closed_status = 'NORMAL'
@@ -95,10 +95,10 @@
         object_type = 'CONTRACT'
         <choose>
             <when test="cond.billType=='zj'">
-                and bill_type LIKE '%租金%'
+                and bill_type = '租金'
             </when>
             <otherwise>
-                and bill_type LIKE '%物业%'
+                and bill_type = '物业费'
             </otherwise>
         </choose>
         AND closed_status = 'NORMAL'
