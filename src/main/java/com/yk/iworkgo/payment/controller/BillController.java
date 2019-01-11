@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.*;
 import com.yk.iworkgo.common.BaseController;
 
 import java.math.BigDecimal;
+import java.util.Iterator;
 import java.util.Map;
 
 /**
@@ -173,9 +174,9 @@ public class BillController extends BaseController {
             //test by guojing start
 //            if (data != null && data.getRows() != null){
 //                int i = 1;
-//                for (Iterator<Bill> iterator = data.getRows().iterator();iterator.hasNext();){
+//                for (Iterator<Bill> iterator = data.getRows().iterator(); iterator.hasNext();){
 //                    Bill bill = iterator.next();
-//                    if (i >= 5){
+//                    if (i >= 3){
 //                        iterator.remove();
 //                    }
 //                    i++;

@@ -52,5 +52,5 @@ IPPort: http://120.27.219.194:8080
 #获取token
 getToken: /dataservices/oauth/token
 
-appKey: wk2847096750508032
-appSecret: 8bXEYDvYiB5DFVmDV93mWUnSWshxedwY+ocsAsiJt1Q=
+appKey: wk3002887850854400
+appSecret: w0Ks2pdgoTulH75uTBranXy5dIwK4K60aS3XzBzd5og=
