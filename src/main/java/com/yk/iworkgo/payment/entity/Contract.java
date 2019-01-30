@@ -124,4 +124,8 @@ public class Contract implements Serializable {
     private LocalDateTime utime;
 
 
+    /**
+     * 合同类型
+     */
+    private String leaseTermType;
 }

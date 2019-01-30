@@ -1,7 +1,7 @@
 server:
-  port: 8080      #配置环境路径名
+  port: 8080
   servlet:
-    context-path: /payment
+    context-path: /payment #context-path
 
 spring:
   datasource:
@@ -52,5 +52,6 @@ IPPort: http://120.27.219.194:8080
 #获取token
 getToken: /dataservices/oauth/token
 
+#workgo h5容器 相关配置
 appKey: wk3002887850854400
 appSecret: w0Ks2pdgoTulH75uTBranXy5dIwK4K60aS3XzBzd5og=

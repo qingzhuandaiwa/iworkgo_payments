@@ -43,10 +43,6 @@
     var tel = '${userInfo.tel}';
     var userId = '${userInfo.userId}';
 
-    $(function(){
-        initPage();
-    });
-
     window.onJsBridgeReady = function () {
         getAuth();
     }
@@ -133,10 +129,9 @@
         console.log(rows);
         // var listDom=document.getElementById("newsList");
         var listDom = document.getElementsByClassName("ul-q2")[0];
-
         for (var i = 0; i < rows.length; i++) {
             var newObj = rows[i];
-
+console.log(newObj);
 
             var str = '<div class="top">';
             if (newObj.leaseTermType === 'RENT') {
@@ -146,7 +141,7 @@
             } else if (newObj.leaseTermType === 'OTHER') {
                 str += '<i class="i3">其他</i>';
             } else {
-                str += '<i class="i3">无合约内容</i>';
+                str += '<i class="i3">其他</i>';
             }
             str += '<span>' + newObj.signDate + '</span></div>';
             str += '<div class="txt"><h3>' + newObj.buildingName + '  ' + newObj.contractNo + '</h3></div>';
